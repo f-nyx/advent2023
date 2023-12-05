@@ -1,5 +1,8 @@
 package be.rlab.aoc2023.support
 
+/** A Point represents a coordinate in a [Grid] with a value.
+ * Two points with the same coordinates cannot exist in the same [Grid].
+ */
 data class Point(
     val x: Int,
     val y: Int,
@@ -26,6 +29,10 @@ data class Point(
     )
 }
 
+/** A Grid represents a two-dimensional plane filled with [Point]s.
+ * This implementation uses a List of [Point]s to speed up the access to any
+ * position of the grid.
+ */
 data class Grid(
     val height: Int,
     val width: Int,
@@ -38,6 +45,10 @@ data class Grid(
         } else {
             null
         }
+    }
+
+    fun translateToIndex(point: Point): Int {
+        return point.translateToIndex(width)
     }
 
     fun neighbors(

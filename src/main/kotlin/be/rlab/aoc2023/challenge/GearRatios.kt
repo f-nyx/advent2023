@@ -37,16 +37,27 @@ fun calculatePartsScore(schema: Grid): Int {
     }.first
 }
 
+/** Calculates the Gear Ratio.
+ *
+ * This algorithm traverse all points in the Grid searching for "gears" (points with an asterisk as value).
+ * If it finds a gear, it looks for digits in the adjacent points (called neighbors). If a gear has neighbors
+ * that are digits, it resolves the full numbers the digits belong to by searching for other digits at the left
+ * and right of each adjacent digit. As a gear might have more than one adjacent digit that belong to the same
+ * number, once all numbers are resolved they're put into a Set to remove duplicates.
+ *
+ * This algorithm assumes that the same number can be adjacent to a gear only once.
+ */
 fun calculateGearRatio(schema: Grid): Int {
     return schema.points.fold(0) { gearRatio, point ->
         if (point.value == '*') {
             val neighbors = schema.neighbors(point)
-            val numbers = neighbors
+            // this assumes the same number cannot be adjacent twice for the same point.
+            val adjacentNumbers = neighbors
                 .filter { neighbor -> neighbor.value.isDigit() }
                 .map { neighbor -> resolvePartNumber(schema, neighbor) }
                 .toSet()
-            if (numbers.size == 2) {
-                gearRatio + numbers.first() * numbers.last()
+            if (adjacentNumbers.size == 2) {
+                gearRatio + adjacentNumbers.first() * adjacentNumbers.last()
             } else {
                 gearRatio
             }
@@ -62,7 +73,7 @@ fun resolvePartNumber(
     schema: Grid,
     ref: Point
 ): Int {
-    val refIndex = ref.translateToIndex(schema.width)
+    val refIndex = schema.translateToIndex(ref)
     var offset = 0
     var value = "${ref.value}"
     var left: Int? = refIndex

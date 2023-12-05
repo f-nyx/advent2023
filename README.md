@@ -7,3 +7,5 @@
 [Day 3: Gear Ratios](https://github.com/f-nyx/advent2023/blob/main/src/main/kotlin/be/rlab/aoc2023/challenge/GearRatios.kt)
 
 [Day 4: Scratchcards](https://github.com/f-nyx/advent2023/blob/main/src/main/kotlin/be/rlab/aoc2023/challenge/Scratchcards.kt)
+
+[Day 5: Food Production](https://github.com/f-nyx/advent2023/blob/main/src/main/kotlin/be/rlab/aoc2023/challenge/FoodProduction.kt)
